@@ -284,6 +284,71 @@
             text-shadow: 0 0 5px rgba(224, 176, 255, 0.5);
         }
 
+        /* CAKE & CANDLE SECTION */
+        .cake-section {
+            margin-top: 35px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .candle-container {
+            position: relative;
+            font-size: 2.2rem;
+            margin-bottom: -15px;
+            z-index: 3;
+            transition: transform 0.2s;
+        }
+
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            animation: flicker 0.6s infinite alternate;
+            filter: drop-shadow(0 0 8px #ffcc00);
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 1; }
+            100% { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
+        }
+
+        .smoke {
+            display: none;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            opacity: 0.7;
+            animation: smokeRise 2s forwards;
+        }
+
+        @keyframes smokeRise {
+            0% { transform: translate(-50%, 0) scale(0.8); opacity: 0.8; }
+            100% { transform: translate(-50%, -30px) scale(1.5); opacity: 0; }
+        }
+
+        .cake-emoji {
+            font-size: 4.5rem;
+            filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.5));
+        }
+
+        .blow-instruction {
+            color: #ffb3d9;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            background: rgba(255, 105, 180, 0.15);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            text-shadow: 0 0 5px #ff69b4;
+        }
+
         /* Interactive Envelopes Section */
         .wishes-section {
             margin-top: 30px;
@@ -298,7 +363,6 @@
             padding: 12px 18px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 1.3rem;
             backdrop-filter: blur(8px);
             transition: transform 0.2s, background 0.2s;
             box-shadow: 0 0 15px rgba(255, 105, 180, 0.2);
@@ -497,6 +561,17 @@
             <div class="typewriter-box" id="typewriter"></div>
         </div>
 
+        <!-- Birthday Cake & Candle Section -->
+        <div class="cake-section" onclick="extinguishCandle()">
+            <div class="candle-container">
+                <div class="flame" id="flame">🔥</div>
+                <div class="smoke" id="smoke">💨</div>
+                🕯️
+            </div>
+            <div class="cake-emoji">🎂</div>
+            <div class="blow-instruction" id="blowStatus">🌬️ Blow into mic or TAP cake to extinguish!</div>
+        </div>
+
         <!-- Interactive Envelopes -->
         <div class="wishes-section">
             <div class="envelope-card" onclick="openWish(1)">✉️ Note 1</div>
@@ -529,6 +604,7 @@
 
     <script>
         const SECRET_PASS = "0306";
+        let candleExtinguished = false;
 
         // Step 1 -> Step 2
         function proceedToLock() {
@@ -580,6 +656,9 @@
 
                 // Start Typewriter Text
                 startTypewriter();
+
+                // Init Microphone Blow Listener
+                initMicBlow();
             } else {
                 errorMsg.style.display = "block";
             }
@@ -590,6 +669,54 @@
                 unlockSurprise();
             }
         });
+
+        // Extinguish Candle Function
+        function extinguishCandle() {
+            if (!candleExtinguished) {
+                candleExtinguished = true;
+                document.getElementById("flame").style.display = "none";
+                document.getElementById("smoke").style.display = "block";
+                document.getElementById("blowStatus").innerText = "✨ Yay! Wish Granted! Happy Birthday! 🎉";
+                
+                // Blast Extra Confetti for Cake
+                triggerConfetti();
+            }
+        }
+
+        // Microphone Audio Listener for Blow Detection
+        function initMicBlow() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(function(stream) {
+                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        const analyser = audioContext.createAnalyser();
+                        const microphone = audioContext.createMediaStreamSource(stream);
+                        microphone.connect(analyser);
+                        analyser.fftSize = 256;
+                        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+                        function checkBlow() {
+                            if (candleExtinguished) return;
+                            analyser.getByteFrequencyData(dataArray);
+                            let sum = 0;
+                            for (let i = 0; i < dataArray.length; i++) {
+                                sum += dataArray[i];
+                            }
+                            let average = sum / dataArray.length;
+
+                            // Threshold for blow noise detection
+                            if (average > 45) {
+                                extinguishCandle();
+                            }
+                            requestAnimationFrame(checkBlow);
+                        }
+                        checkBlow();
+                    })
+                    .catch(function(err) {
+                        // Mic denied/unavailable; fallback to tap working smoothly
+                    });
+            }
+        }
 
         // Confetti Burst Effect
         function triggerConfetti() {
