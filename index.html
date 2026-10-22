@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
 
         body {
@@ -21,7 +22,7 @@
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             position: relative;
         }
 
@@ -121,14 +122,15 @@
             position: relative;
         }
 
-        /* Step 2: Password Lock Overlay */
+        /* Step 2: iOS Style Passcode Lock Overlay */
         #lockOverlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0d0118;
+            background: rgba(13, 1, 24, 0.95);
+            backdrop-filter: blur(20px);
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -139,59 +141,108 @@
             transition: opacity 0.5s ease, visibility 0.5s;
         }
 
-        .lock-box {
-            background: rgba(255, 192, 203, 0.08);
-            padding: 35px 40px;
-            border-radius: 25px;
-            border: 2px solid rgba(255, 105, 180, 0.4);
-            box-shadow: 0 0 35px rgba(255, 105, 180, 0.3);
-            text-align: center;
-            backdrop-filter: blur(10px);
-            width: 320px;
+        .ios-lock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 320px;
         }
 
-        .lock-box h2 {
-            color: #fff0f5;
-            margin-bottom: 18px;
-            font-size: 1.4rem;
-            text-shadow: 0 0 12px #ff69b4;
+        .lock-title {
+            color: #ffffff;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
         }
 
-        .lock-box input {
-            padding: 12px 18px;
-            border-radius: 25px;
-            border: 2px solid #ff69b4;
-            outline: none;
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            font-size: 1rem;
-            text-align: center;
-            margin-bottom: 15px;
+        /* Passcode Dots Bar */
+        .dots-container {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 40px;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.2s ease;
+        }
+
+        .dot.filled {
+            background-color: #ff69b4;
+            border-color: #ff69b4;
+            box-shadow: 0 0 12px #ff69b4;
+        }
+
+        .dot.shake {
+            animation: shakeDots 0.4s ease;
+        }
+
+        @keyframes shakeDots {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        /* Number Keypad Grid */
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 25px;
+            justify-items: center;
             width: 100%;
         }
 
-        .lock-box button {
-            background: linear-gradient(45deg, #ff1493, #ff69b4);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
+        .key-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.6rem;
+            font-weight: 400;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 0 0 18px rgba(255, 20, 147, 0.8);
-            transition: transform 0.2s;
+            backdrop-filter: blur(10px);
+            transition: background 0.15s, transform 0.1s;
         }
 
-        .lock-box button:hover {
-            transform: scale(1.05);
+        .key-btn:active {
+            background: rgba(255, 105, 180, 0.5);
+            transform: scale(0.92);
+        }
+
+        .key-btn span {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            margin-top: -2px;
+            opacity: 0.7;
+        }
+
+        .key-btn.action-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+        }
+
+        .key-btn.action-btn:active {
+            background: transparent;
         }
 
         #errorMsg {
             color: #ff4d6d;
-            margin-top: 10px;
+            margin-top: 20px;
             font-size: 0.85rem;
             display: none;
+            text-shadow: 0 0 8px rgba(255, 77, 109, 0.6);
         }
 
         /* Background Animated Glow */
@@ -286,7 +337,7 @@
 
         /* Interactive Envelopes Section */
         .wishes-section {
-            margin-top: 30px;
+            margin-top: 35px;
             display: flex;
             gap: 15px;
             justify-content: center;
@@ -298,7 +349,6 @@
             padding: 12px 18px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 1.3rem;
             backdrop-filter: blur(8px);
             transition: transform 0.2s, background 0.2s;
             box-shadow: 0 0 15px rgba(255, 105, 180, 0.2);
@@ -470,14 +520,36 @@
         </div>
     </div>
 
-    <!-- Step 2: Password Lock Screen -->
+    <!-- Step 2: iOS Style Passcode Lock Screen -->
     <div id="lockOverlay">
-        <div class="lock-box">
-            <h2>🔒 Secret Passcode</h2>
-            <input type="password" id="passInput" placeholder="Enter Password">
-            <br>
-            <button onclick="unlockSurprise()">Unlock ❤️</button>
-            <p id="errorMsg">Incorrect Password! Try again.</p>
+        <div class="ios-lock-container">
+            <div class="lock-title">Enter Passcode</div>
+
+            <!-- Passcode Dots Indicator -->
+            <div class="dots-container" id="dotsContainer">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+
+            <!-- Keypad Buttons Grid -->
+            <div class="keypad">
+                <div class="key-btn" onclick="pressKey('1')">1</div>
+                <div class="key-btn" onclick="pressKey('2')">2 <span>ABC</span></div>
+                <div class="key-btn" onclick="pressKey('3')">3 <span>DEF</span></div>
+                <div class="key-btn" onclick="pressKey('4')">4 <span>GHI</span></div>
+                <div class="key-btn" onclick="pressKey('5')">5 <span>JKL</span></div>
+                <div class="key-btn" onclick="pressKey('6')">6 <span>MNO</span></div>
+                <div class="key-btn" onclick="pressKey('7')">7 <span>PQRS</span></div>
+                <div class="key-btn" onclick="pressKey('8')">8 <span>TUV</span></div>
+                <div class="key-btn" onclick="pressKey('9')">9 <span>WXYZ</span></div>
+                <div class="key-btn action-btn"></div>
+                <div class="key-btn" onclick="pressKey('0')">0</div>
+                <div class="key-btn action-btn" onclick="deleteKey()">⌫</div>
+            </div>
+
+            <p id="errorMsg">Incorrect Passcode! Try again.</p>
         </div>
     </div>
 
@@ -529,6 +601,7 @@
 
     <script>
         const SECRET_PASS = "0306";
+        let inputPass = "";
 
         // Step 1 -> Step 2
         function proceedToLock() {
@@ -541,7 +614,6 @@
                 qOverlay.style.display = "none";
                 lOverlay.style.visibility = "visible";
                 lOverlay.style.opacity = "1";
-                document.getElementById("passInput").focus();
             }, 500);
         }
 
@@ -553,43 +625,81 @@
             noBtn.style.transform = `translate(${x}px, ${y}px)`;
         }
 
+        // Keypad Input Handlers
+        function pressKey(num) {
+            if (inputPass.length < 4) {
+                inputPass += num;
+                updateDots();
+
+                if (inputPass.length === 4) {
+                    setTimeout(checkPasscode, 200);
+                }
+            }
+        }
+
+        function deleteKey() {
+            if (inputPass.length > 0) {
+                inputPass = inputPass.slice(0, -1);
+                updateDots();
+                document.getElementById("errorMsg").style.display = "none";
+            }
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll(".dot");
+            dots.forEach((dot, index) => {
+                if (index < inputPass.length) {
+                    dot.classList.add("filled");
+                } else {
+                    dot.classList.remove("filled");
+                }
+            });
+        }
+
+        // Check Passcode Match
+        function checkPasscode() {
+            const errorMsg = document.getElementById("errorMsg");
+            const dotsContainer = document.getElementById("dotsContainer");
+
+            if (inputPass === SECRET_PASS) {
+                unlockSurprise();
+            } else {
+                errorMsg.style.display = "block";
+                dotsContainer.classList.add("shake");
+                
+                setTimeout(() => {
+                    dotsContainer.classList.remove("shake");
+                    inputPass = "";
+                    updateDots();
+                }, 500);
+            }
+        }
+
         // Unlock Main Screen
         function unlockSurprise() {
-            const userPass = document.getElementById("passInput").value;
-            const errorMsg = document.getElementById("errorMsg");
             const lockOverlay = document.getElementById("lockOverlay");
             const mainContent = document.getElementById("mainContent");
             const playerCard = document.getElementById("playerCard");
             const song = document.getElementById("bgSong");
 
-            if (userPass === SECRET_PASS) {
-                lockOverlay.style.opacity = "0";
-                lockOverlay.style.visibility = "hidden";
-                
-                mainContent.classList.add("show");
-                playerCard.classList.add("show");
+            lockOverlay.style.opacity = "0";
+            lockOverlay.style.visibility = "hidden";
+            
+            mainContent.classList.add("show");
+            playerCard.classList.add("show");
 
-                // Music play
-                song.play();
+            // Music play
+            song.play();
 
-                // Trigger Confetti Burst
-                triggerConfetti();
+            // Trigger Confetti Burst
+            triggerConfetti();
 
-                // Start Floating Hearts & Balloons
-                startFloatingHearts();
+            // Start Floating Hearts & Balloons
+            startFloatingHearts();
 
-                // Start Typewriter Text
-                startTypewriter();
-            } else {
-                errorMsg.style.display = "block";
-            }
+            // Start Typewriter Text
+            startTypewriter();
         }
-
-        document.getElementById("passInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                unlockSurprise();
-            }
-        });
 
         // Confetti Burst Effect
         function triggerConfetti() {
@@ -649,11 +759,11 @@
             }
         }
 
-        // Notes / Envelope Popups
+        // Notes / Envelope Popups (With Flirty Proposal in Note 3)
         const notes = {
             1: "🌸 May your smile shine brighter than ever today and always! Stay blessed & happy!",
             2: "🎉 Wishing you an unforgettable day packed with joyous surprises and sweet memories!",
-            3: "✨ You deserve all the magical things this world has to offer. Happy Birthday, Indira!"
+            3: "Out of all the code I’ve ever written, you're easily my favorite line. Happy Birthday, gorgeous! 💖✨"
         };
 
         function openWish(num) {
