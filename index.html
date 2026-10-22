@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Indira Sinha!</title>
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -13,13 +15,14 @@
 
         body {
             background-color: #0d0118;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             font-family: 'Poppins', sans-serif;
+            position: relative;
         }
 
         /* Step 1: Initial Question Screen Overlay */
@@ -204,12 +207,15 @@
         #mainContent {
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.6s ease, visibility 0.6s;
+            transition: opacity 0.8s ease, visibility 0.8s;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 2;
+            padding: 40px 20px 100px 20px;
+            text-align: center;
+            width: 100%;
         }
 
         #mainContent.show {
@@ -248,13 +254,13 @@
             position: relative;
             z-index: 2;
             text-align: center;
-            margin-top: 35px;
+            margin-top: 30px;
             padding: 0 15px;
         }
 
         .main-title {
             color: #fff;
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 800;
             text-shadow: 0 0 10px #fff, 0 0 20px #ff0055, 0 0 40px #ff0055;
             letter-spacing: 1px;
@@ -268,7 +274,153 @@
             text-shadow: 0 0 8px rgba(255, 179, 217, 0.7);
         }
 
-        /* Canvas (Particles) */
+        /* Typewriter Text Box */
+        .typewriter-box {
+            margin-top: 18px;
+            font-size: 0.95rem;
+            color: #e0b0ff;
+            min-height: 24px;
+            font-style: italic;
+            text-shadow: 0 0 5px rgba(224, 176, 255, 0.5);
+        }
+
+        /* Interactive Envelopes Section */
+        .wishes-section {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .envelope-card {
+            background: rgba(255, 105, 180, 0.12);
+            border: 1px solid rgba(255, 105, 180, 0.4);
+            padding: 12px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            backdrop-filter: blur(8px);
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .envelope-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: rgba(255, 105, 180, 0.25);
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+        }
+
+        /* Modal for Envelope Wish Popups */
+        .wish-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 20000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+        }
+
+        .wish-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .wish-box {
+            background: linear-gradient(135deg, #2a0845, #18032b);
+            border: 2px solid #ff69b4;
+            border-radius: 22px;
+            padding: 30px 25px;
+            width: 320px;
+            max-width: 85%;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(255, 105, 180, 0.6);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .wish-modal.active .wish-box {
+            transform: scale(1);
+        }
+
+        .wish-box p {
+            color: #fff0f5;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .wish-close-btn {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Modern Floating Music Player Card */
+        .music-player-card {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            background: rgba(255, 105, 180, 0.15);
+            border: 1px solid rgba(255, 105, 180, 0.4);
+            backdrop-filter: blur(12px);
+            padding: 10px 18px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+            cursor: pointer;
+        }
+
+        .music-player-card.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .music-icon {
+            font-size: 1.2rem;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .music-info {
+            text-align: left;
+            color: #fff;
+            font-size: 0.8rem;
+        }
+
+        .music-info strong {
+            display: block;
+            color: #ffb3d9;
+            font-size: 0.85rem;
+        }
+
+        /* Canvas Particle Screen */
         canvas {
             position: absolute;
             top: 0;
@@ -278,33 +430,29 @@
             z-index: 1;
         }
 
-        /* Music Button */
-        .music-btn {
+        /* Floating Hearts Container */
+        #heartsContainer {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 999;
-            background: linear-gradient(45deg, #ff1493, #ff69b4);
-            color: white;
-            border: none;
-            padding: 12px 22px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 15px;
-            box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
-            transition: transform 0.2s, opacity 0.5s;
-            opacity: 0;
-            visibility: hidden;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
         }
 
-        .music-btn.show {
-            opacity: 1;
-            visibility: visible;
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 1.5rem;
+            animation: floatUp 6s linear infinite;
+            opacity: 0.8;
         }
 
-        .music-btn:hover {
-            transform: scale(1.05);
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
@@ -335,6 +483,7 @@
 
     <div class="bg-glow"></div>
     <canvas id="fireworks"></canvas>
+    <div id="heartsContainer"></div>
 
     <!-- Main Content -->
     <div id="mainContent">
@@ -345,6 +494,22 @@
         <div class="text-container">
             <h1 class="main-title">Happy Birthday Indira Sinha! 💖</h1>
             <p class="sub-title">I guess no one has ever wished you like this.</p>
+            <div class="typewriter-box" id="typewriter"></div>
+        </div>
+
+        <!-- Interactive Envelopes -->
+        <div class="wishes-section">
+            <div class="envelope-card" onclick="openWish(1)">✉️ Note 1</div>
+            <div class="envelope-card" onclick="openWish(2)">🎁 Note 2</div>
+            <div class="envelope-card" onclick="openWish(3)">💖 Note 3</div>
+        </div>
+    </div>
+
+    <!-- Envelope Wish Popups -->
+    <div class="wish-modal" id="wishModal">
+        <div class="wish-box">
+            <p id="wishText"></p>
+            <button class="wish-close-btn" onclick="closeWish()">Close ❤️</button>
         </div>
     </div>
 
@@ -353,8 +518,14 @@
         <source src="song.mp3" type="audio/mp3">
     </audio>
 
-    <!-- Music Control Button -->
-    <button class="music-btn" id="playBtn" onclick="togglePlay()">⏸️ Pause Music</button>
+    <!-- Modern Music Player Card -->
+    <div class="music-player-card" id="playerCard" onclick="togglePlay()">
+        <div class="music-icon" id="musicDisk">🎵</div>
+        <div class="music-info">
+            <strong id="songStatus">Playing Music...</strong>
+            <span>Click to pause/play</span>
+        </div>
+    </div>
 
     <script>
         const SECRET_PASS = "0306";
@@ -382,25 +553,33 @@
             noBtn.style.transform = `translate(${x}px, ${y}px)`;
         }
 
-        // Unlock Main Screen (Perfect Sync)
+        // Unlock Main Screen
         function unlockSurprise() {
             const userPass = document.getElementById("passInput").value;
             const errorMsg = document.getElementById("errorMsg");
             const lockOverlay = document.getElementById("lockOverlay");
             const mainContent = document.getElementById("mainContent");
-            const playBtn = document.getElementById("playBtn");
+            const playerCard = document.getElementById("playerCard");
             const song = document.getElementById("bgSong");
 
             if (userPass === SECRET_PASS) {
-                // Ekshathe photo, text, audio play ebong lock vanish hobe
                 lockOverlay.style.opacity = "0";
                 lockOverlay.style.visibility = "hidden";
                 
                 mainContent.classList.add("show");
-                playBtn.classList.add("show");
+                playerCard.classList.add("show");
 
-                // Music play synchronously
+                // Music play
                 song.play();
+
+                // Trigger Confetti Burst
+                triggerConfetti();
+
+                // Start Floating Hearts & Balloons
+                startFloatingHearts();
+
+                // Start Typewriter Text
+                startTypewriter();
             } else {
                 errorMsg.style.display = "block";
             }
@@ -412,7 +591,81 @@
             }
         });
 
-        // Background Sparkle Animation
+        // Confetti Burst Effect
+        function triggerConfetti() {
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff1493', '#ff69b4', '#ffb3d9', '#ffffff']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff1493', '#ff69b4', '#ffb3d9', '#ffffff']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Floating Hearts & Balloons
+        function startFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const icons = ['💖', '🎈', '✨', '🌸', '💕'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }, 400);
+        }
+
+        // Typewriter Effect
+        const messageText = "May your special day be filled with endless smiles, warmth, and magical moments... ✨";
+        let typeIndex = 0;
+
+        function startTypewriter() {
+            if (typeIndex < messageText.length) {
+                document.getElementById("typewriter").innerHTML += messageText.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(startTypewriter, 50);
+            }
+        }
+
+        // Notes / Envelope Popups
+        const notes = {
+            1: "🌸 May your smile shine brighter than ever today and always! Stay blessed & happy!",
+            2: "🎉 Wishing you an unforgettable day packed with joyous surprises and sweet memories!",
+            3: "✨ You deserve all the magical things this world has to offer. Happy Birthday, Indira!"
+        };
+
+        function openWish(num) {
+            document.getElementById("wishText").innerText = notes[num];
+            document.getElementById("wishModal").classList.add("active");
+        }
+
+        function closeWish() {
+            document.getElementById("wishModal").classList.remove("active");
+        }
+
+        // Background Sparkle Particle Animation
         const canvas = document.getElementById('fireworks');
         const ctx = canvas.getContext('2d');
 
@@ -451,15 +704,18 @@
 
         // Music Control
         var song = document.getElementById("bgSong");
-        var btn = document.getElementById("playBtn");
+        var disk = document.getElementById("musicDisk");
+        var statusText = document.getElementById("songStatus");
 
         function togglePlay() {
             if (song.paused) {
                 song.play();
-                btn.innerHTML = "⏸️ Pause Music";
+                disk.style.animationPlayState = "running";
+                statusText.innerText = "Playing Music...";
             } else {
                 song.pause();
-                btn.innerHTML = "🎵 Play Music";
+                disk.style.animationPlayState = "paused";
+                statusText.innerText = "Music Paused";
             }
         }
     </script>
