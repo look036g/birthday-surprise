@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Happy Birthday Indira Sinha!</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,103 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Password Lock Overlay */
+        /* Step 1: Initial Question Screen Overlay */
+        #questionOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #18032b, #0d0118);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .girly-card {
+            background: rgba(255, 192, 203, 0.08);
+            padding: 40px 35px;
+            border-radius: 28px;
+            border: 2px solid rgba(255, 105, 180, 0.4);
+            box-shadow: 0 0 40px rgba(255, 105, 180, 0.3), inset 0 0 15px rgba(255, 182, 193, 0.2);
+            text-align: center;
+            backdrop-filter: blur(12px);
+            max-width: 90%;
+            width: 380px;
+            animation: cardFloat 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes cardFloat {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .sparkle-icon {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            display: inline-block;
+            animation: sparkleGlow 1.5s infinite alternate;
+        }
+
+        @keyframes sparkleGlow {
+            0% { transform: scale(1); filter: drop-shadow(0 0 5px #ffb6c1); }
+            100% { transform: scale(1.18); filter: drop-shadow(0 0 18px #ff69b4); }
+        }
+
+        .question-text {
+            color: #fff0f5;
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+            line-height: 1.4;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        .yes-btn {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.7);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.9);
+        }
+
+        .no-btn {
+            background: linear-gradient(45deg, #8a2be2, #9370db);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        /* Step 2: Password Lock Overlay */
         #lockOverlay {
             position: fixed;
             top: 0;
@@ -35,30 +131,33 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s;
         }
 
         .lock-box {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 51, 102, 0.3);
-            box-shadow: 0 0 30px rgba(255, 51, 102, 0.2);
+            background: rgba(255, 192, 203, 0.08);
+            padding: 35px 40px;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 105, 180, 0.4);
+            box-shadow: 0 0 35px rgba(255, 105, 180, 0.3);
             text-align: center;
             backdrop-filter: blur(10px);
+            width: 320px;
         }
 
         .lock-box h2 {
-            color: #fff;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-            text-shadow: 0 0 10px #ff3366;
+            color: #fff0f5;
+            margin-bottom: 18px;
+            font-size: 1.4rem;
+            text-shadow: 0 0 12px #ff69b4;
         }
 
         .lock-box input {
             padding: 12px 18px;
             border-radius: 25px;
-            border: 2px solid #ff3366;
+            border: 2px solid #ff69b4;
             outline: none;
             background: rgba(0, 0, 0, 0.5);
             color: #fff;
@@ -69,7 +168,7 @@
         }
 
         .lock-box button {
-            background: #ff3366;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
             color: white;
             border: none;
             padding: 10px 25px;
@@ -77,17 +176,16 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 1rem;
-            box-shadow: 0 0 15px rgba(255, 51, 102, 0.8);
-            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 0 18px rgba(255, 20, 147, 0.8);
+            transition: transform 0.2s;
         }
 
         .lock-box button:hover {
             transform: scale(1.05);
-            background: #ff1a53;
         }
 
         #errorMsg {
-            color: #ff4d4d;
+            color: #ff4d6d;
             margin-top: 10px;
             font-size: 0.85rem;
             display: none;
@@ -100,6 +198,23 @@
             height: 100%;
             background: radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(13, 1, 24, 1) 70%);
             z-index: 1;
+        }
+
+        /* MAIN CONTENT */
+        #mainContent {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease, visibility 0.6s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        #mainContent.show {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Square Card & Glow Effect */
@@ -134,6 +249,7 @@
             z-index: 2;
             text-align: center;
             margin-top: 35px;
+            padding: 0 15px;
         }
 
         .main-title {
@@ -148,7 +264,7 @@
             color: #ffb3d9;
             font-size: 1.1rem;
             margin-top: 10px;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-shadow: 0 0 8px rgba(255, 179, 217, 0.7);
         }
 
@@ -168,7 +284,7 @@
             bottom: 25px;
             right: 25px;
             z-index: 999;
-            background: #ff3366;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
             color: white;
             border: none;
             padding: 12px 22px;
@@ -176,23 +292,41 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 15px;
-            box-shadow: 0 0 20px rgba(255, 51, 102, 0.8);
-            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+            transition: transform 0.2s, opacity 0.5s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .music-btn.show {
+            opacity: 1;
+            visibility: visible;
         }
 
         .music-btn:hover {
             transform: scale(1.05);
-            background: #ff1a53;
         }
     </style>
 </head>
 <body>
 
-    <!-- Password Lock Screen -->
+    <!-- Step 1: Girly Question Screen -->
+    <div id="questionOverlay">
+        <div class="girly-card">
+            <div class="sparkle-icon">✨</div>
+            <div class="question-text">Do you wanna see what I made??</div>
+            <div class="btn-group">
+                <button class="yes-btn" onclick="proceedToLock()">Yes!</button>
+                <button class="no-btn" id="noBtn" onmouseover="dodgeNoBtn()" onclick="dodgeNoBtn()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2: Password Lock Screen -->
     <div id="lockOverlay">
         <div class="lock-box">
-            <h2>🔒 Surprise Locked!</h2>
-            <input type="password" id="passInput" placeholder="Enter Secret Password">
+            <h2>🔒 Secret Passcode</h2>
+            <input type="password" id="passInput" placeholder="Enter Password">
             <br>
             <button onclick="unlockSurprise()">Unlock ❤️</button>
             <p id="errorMsg">Incorrect Password! Try again.</p>
@@ -202,15 +336,16 @@
     <div class="bg-glow"></div>
     <canvas id="fireworks"></canvas>
 
-    <!-- Square Photo Card -->
-    <div class="square-card">
-        <img src="photo.jpg" alt="Birthday Girl">
-    </div>
+    <!-- Main Content -->
+    <div id="mainContent">
+        <div class="square-card">
+            <img src="photo.jpg" alt="Indira Sinha">
+        </div>
 
-    <!-- Glowing Text -->
-    <div class="text-container">
-        <h1 class="main-title">Happy Birthday Indira Sinha! 💖</h1>
-        <p class="sub-title">I guess no one has ever wished you like this.</p>
+        <div class="text-container">
+            <h1 class="main-title">Happy Birthday Indira Sinha! 💖</h1>
+            <p class="sub-title">I guess no one has ever wished you like this.</p>
+        </div>
     </div>
 
     <!-- Background Music -->
@@ -219,24 +354,52 @@
     </audio>
 
     <!-- Music Control Button -->
-    <button class="music-btn" onclick="togglePlay()" id="playBtn">⏸️ Pause Music</button>
+    <button class="music-btn" id="playBtn" onclick="togglePlay()">⏸️ Pause Music</button>
 
     <script>
-        // Password set to 0306
         const SECRET_PASS = "0306";
 
+        // Step 1 -> Step 2
+        function proceedToLock() {
+            const qOverlay = document.getElementById("questionOverlay");
+            const lOverlay = document.getElementById("lockOverlay");
+            
+            qOverlay.style.opacity = "0";
+            qOverlay.style.transform = "scale(1.08)";
+            setTimeout(() => {
+                qOverlay.style.display = "none";
+                lOverlay.style.visibility = "visible";
+                lOverlay.style.opacity = "1";
+                document.getElementById("passInput").focus();
+            }, 500);
+        }
+
+        // Dodge effect for "No" button
+        function dodgeNoBtn() {
+            const noBtn = document.getElementById("noBtn");
+            const x = (Math.random() - 0.5) * 220;
+            const y = (Math.random() - 0.5) * 160;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // Unlock Main Screen (Perfect Sync)
         function unlockSurprise() {
             const userPass = document.getElementById("passInput").value;
             const errorMsg = document.getElementById("errorMsg");
             const lockOverlay = document.getElementById("lockOverlay");
+            const mainContent = document.getElementById("mainContent");
+            const playBtn = document.getElementById("playBtn");
             const song = document.getElementById("bgSong");
 
             if (userPass === SECRET_PASS) {
+                // Ekshathe photo, text, audio play ebong lock vanish hobe
                 lockOverlay.style.opacity = "0";
-                setTimeout(() => {
-                    lockOverlay.style.visibility = "hidden";
-                }, 800);
+                lockOverlay.style.visibility = "hidden";
+                
+                mainContent.classList.add("show");
+                playBtn.classList.add("show");
 
+                // Music play synchronously
                 song.play();
             } else {
                 errorMsg.style.display = "block";
@@ -258,11 +421,11 @@
 
         const particles = [];
 
-        for (let i = 0; i < 70; i++) {
+        for (let i = 0; i < 75; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 2,
+                radius: Math.random() * 2.2,
                 color: '#fff',
                 velocity: Math.random() * 0.5 + 0.2
             });
@@ -276,8 +439,8 @@
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fillStyle = p.color;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = "#ff3366";
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = "#ff69b4";
                 ctx.fill();
 
                 p.y -= p.velocity;
