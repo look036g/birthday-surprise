@@ -15,14 +15,20 @@
         }
 
         body {
-            background-color: #0d0118;
+            background-color: #3b0a12;
+            background-image: 
+                linear-gradient(90deg, rgba(0,0,0,0.25) 50%, transparent 50%),
+                linear-gradient(rgba(0,0,0,0.25) 50%, transparent 50%),
+                linear-gradient(90deg, rgba(255,255,255,0.06) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.06) 75%),
+                linear-gradient(rgba(255,255,255,0.06) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.06) 75%);
+            background-size: 40px 40px, 40px 40px, 10px 10px, 10px 10px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             position: relative;
         }
 
@@ -33,7 +39,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #18032b, #0d0118);
+            background: rgba(20, 3, 7, 0.92);
+            backdrop-filter: blur(10px);
             z-index: 10000;
             display: flex;
             flex-direction: column;
@@ -43,13 +50,12 @@
         }
 
         .girly-card {
-            background: rgba(255, 192, 203, 0.08);
+            background: #fffdf9;
             padding: 40px 35px;
-            border-radius: 28px;
-            border: 2px solid rgba(255, 105, 180, 0.4);
-            box-shadow: 0 0 40px rgba(255, 105, 180, 0.3), inset 0 0 15px rgba(255, 182, 193, 0.2);
+            border-radius: 20px;
+            border: 2px solid #e0c9a6;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             text-align: center;
-            backdrop-filter: blur(12px);
             max-width: 90%;
             width: 380px;
             animation: cardFloat 3s ease-in-out infinite alternate;
@@ -64,20 +70,13 @@
             font-size: 2.8rem;
             margin-bottom: 12px;
             display: inline-block;
-            animation: sparkleGlow 1.5s infinite alternate;
-        }
-
-        @keyframes sparkleGlow {
-            0% { transform: scale(1); filter: drop-shadow(0 0 5px #ffb6c1); }
-            100% { transform: scale(1.18); filter: drop-shadow(0 0 18px #ff69b4); }
         }
 
         .question-text {
-            color: #fff0f5;
+            color: #3b0a12;
             font-size: 1.45rem;
             font-weight: 700;
             margin-bottom: 28px;
-            text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
             line-height: 1.4;
         }
 
@@ -91,7 +90,7 @@
         }
 
         .yes-btn {
-            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            background: #b81d36;
             color: white;
             border: none;
             padding: 12px 30px;
@@ -99,17 +98,16 @@
             cursor: pointer;
             font-weight: 700;
             font-size: 1.1rem;
-            box-shadow: 0 0 20px rgba(255, 20, 147, 0.7);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(184, 29, 54, 0.4);
+            transition: transform 0.2s ease;
         }
 
         .yes-btn:hover {
             transform: scale(1.08);
-            box-shadow: 0 0 30px rgba(255, 105, 180, 0.9);
         }
 
         .no-btn {
-            background: linear-gradient(45deg, #8a2be2, #9370db);
+            background: #6c757d;
             color: white;
             border: none;
             padding: 12px 30px;
@@ -117,20 +115,19 @@
             cursor: pointer;
             font-weight: 700;
             font-size: 1.1rem;
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
             transition: all 0.2s ease;
             position: relative;
         }
 
-        /* Step 2: iOS Style Passcode Lock Overlay */
+        /* Step 2: Passcode Lock Screen */
         #lockOverlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(13, 1, 24, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(20, 3, 7, 0.95);
+            backdrop-filter: blur(15px);
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -141,120 +138,108 @@
             transition: opacity 0.5s ease, visibility 0.5s;
         }
 
-        .ios-lock-container {
+        .aesthetic-lock-box {
+            background: #fcf8f2;
+            border: 2px solid #d4af37;
+            padding: 35px 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
-            max-width: 320px;
+            width: 330px;
+            max-width: 90%;
         }
 
         .lock-title {
-            color: #ffffff;
-            font-size: 1.35rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+            color: #3b0a12;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 22px;
+            letter-spacing: 0.5px;
         }
 
-        /* Passcode Dots Bar */
-        .dots-container {
+        .hearts-dots-container {
             display: flex;
-            gap: 18px;
-            margin-bottom: 40px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.8);
+        .heart-dot {
+            font-size: 1.4rem;
+            color: #c9b09a;
             transition: all 0.2s ease;
         }
 
-        .dot.filled {
-            background-color: #ff69b4;
-            border-color: #ff69b4;
-            box-shadow: 0 0 12px #ff69b4;
+        .heart-dot.filled {
+            color: #b81d36;
+            transform: scale(1.2);
         }
 
-        .dot.shake {
+        .heart-dot.shake {
             animation: shakeDots 0.4s ease;
         }
 
         @keyframes shakeDots {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
         }
 
-        /* Number Keypad Grid */
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px 25px;
+            gap: 15px 20px;
             justify-items: center;
             width: 100%;
         }
 
         .key-btn {
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
+            background: #f4eae1;
+            border: 1px solid #d8c3b0;
+            color: #3b0a12;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 1.6rem;
-            font-weight: 400;
+            font-size: 1.4rem;
+            font-weight: 600;
             cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: background 0.15s, transform 0.1s;
+            transition: all 0.2s ease;
         }
 
         .key-btn:active {
-            background: rgba(255, 105, 180, 0.5);
+            background: #b81d36;
+            color: white;
             transform: scale(0.92);
         }
 
         .key-btn span {
-            font-size: 0.6rem;
-            letter-spacing: 2px;
+            font-size: 0.55rem;
+            letter-spacing: 1.5px;
             margin-top: -2px;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         .key-btn.action-btn {
             background: transparent;
             border: none;
-            font-size: 1.2rem;
-        }
-
-        .key-btn.action-btn:active {
-            background: transparent;
+            font-size: 1.1rem;
         }
 
         #errorMsg {
-            color: #ff4d6d;
-            margin-top: 20px;
-            font-size: 0.85rem;
+            color: #b81d36;
+            margin-top: 18px;
+            font-size: 0.8rem;
             display: none;
-            text-shadow: 0 0 8px rgba(255, 77, 109, 0.6);
+            text-align: center;
+            padding: 0 5px;
         }
 
-        /* Background Animated Glow */
-        .bg-glow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(13, 1, 24, 1) 70%);
-            z-index: 1;
-        }
-
-        /* MAIN CONTENT */
+        /* MAIN CONTENT - OPEN SCRAPBOOK DIARY */
         #mainContent {
             opacity: 0;
             visibility: hidden;
@@ -264,9 +249,9 @@
             align-items: center;
             justify-content: center;
             z-index: 2;
-            padding: 40px 20px 100px 20px;
-            text-align: center;
+            padding: 40px 15px 80px 15px;
             width: 100%;
+            max-width: 950px;
         }
 
         #mainContent.show {
@@ -274,99 +259,285 @@
             visibility: visible;
         }
 
-        /* Square Card & Glow Effect */
-        .square-card {
+        /* Open Diary Container */
+        .open-book {
+            background: #f5eedc;
+            border-radius: 12px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.7), inset 0 0 100px rgba(184, 134, 11, 0.15);
+            display: flex;
+            width: 100%;
+            max-width: 850px;
+            min-height: 480px;
             position: relative;
-            z-index: 2;
-            width: 250px;
-            height: 250px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            padding: 5px;
-            box-shadow: 0 0 35px rgba(255, 65, 108, 0.8), 0 0 70px rgba(255, 0, 85, 0.5);
-            animation: pulse 2s infinite alternate ease-in-out;
+            border: 1px solid #d4c5a9;
+            margin-bottom: 25px;
         }
 
-        .square-card img {
+        /* Spine Crease in Middle */
+        .open-book::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.12) 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Left Page & Right Page Layout */
+        .book-page {
+            flex: 1;
+            padding: 35px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .left-page {
+            border-right: 1px solid rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .right-page {
+            text-align: center;
+        }
+
+        /* Binder Clips on Book Top */
+        .binder-clip {
+            position: absolute;
+            top: -12px;
+            width: 20px;
+            height: 35px;
+            background: linear-gradient(135deg, #d4af37, #aa820a);
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+        .binder-clip.left { left: 15%; }
+        .binder-clip.right { right: 15%; }
+
+        /* Stamp Cutout Title Letters */
+        .stamp-title {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stamp-letter {
+            background: #8b1e2d;
+            color: #fdfaf5;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 900;
+            font-size: 1.4rem;
+            padding: 4px 8px;
+            border-radius: 3px;
+            box-shadow: 2px 3px 5px rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+
+        .stamp-letter:nth-child(odd) { transform: rotate(-3deg); }
+        .stamp-letter:nth-child(even) { transform: rotate(4deg); }
+
+        .recipient-name {
+            font-family: 'Georgia', serif;
+            font-size: 1.8rem;
+            color: #3b0a12;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .typewriter-box {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #5a3d28;
+            min-height: 40px;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        /* Polaroid Photo Frame on Right Page */
+        .polaroid-card {
+            background: #ffffff;
+            padding: 12px 12px 35px 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            transform: rotate(2deg);
+            width: 220px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .polaroid-card:hover {
+            transform: rotate(0deg) scale(1.03);
+        }
+
+        .polaroid-card img {
             width: 100%;
-            height: 100%;
+            height: 200px;
             object-fit: cover;
-            border-radius: 16px;
             display: block;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.96); box-shadow: 0 0 25px rgba(255, 65, 108, 0.7); }
-            100% { transform: scale(1.04); box-shadow: 0 0 50px rgba(255, 65, 108, 1), 0 0 80px rgba(255, 0, 128, 0.6); }
-        }
-
-        /* Glowing Text */
-        .text-container {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            margin-top: 30px;
-            padding: 0 15px;
-        }
-
-        .main-title {
-            color: #fff;
-            font-size: 2.3rem;
-            font-weight: 800;
-            text-shadow: 0 0 10px #fff, 0 0 20px #ff0055, 0 0 40px #ff0055;
-            letter-spacing: 1px;
-        }
-
-        .sub-title {
-            color: #ffb3d9;
-            font-size: 1.1rem;
+        .polaroid-caption {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+            color: #333;
             margin-top: 10px;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 8px rgba(255, 179, 217, 0.7);
+            font-weight: bold;
         }
 
-        /* Typewriter Text Box */
-        .typewriter-box {
-            margin-top: 18px;
-            font-size: 0.95rem;
-            color: #e0b0ff;
-            min-height: 24px;
-            font-style: italic;
-            text-shadow: 0 0 5px rgba(224, 176, 255, 0.5);
+        /* Washi Tape Accent */
+        .tape-accent {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 80px;
+            height: 22px;
+            background: rgba(230, 200, 150, 0.6);
+            border: 1px dashed rgba(180, 140, 90, 0.4);
+            z-index: 3;
         }
 
-        /* Interactive Envelopes Section */
+        /* Wax Seal Accent */
+        .wax-seal {
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background: radial-gradient(circle at 30% 30%, #b81d36, #6b0918);
+            border-radius: 50%;
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #d4af37;
+            font-family: serif;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 2px stroke #8b1e2d;
+            z-index: 6;
+        }
+
+        /* 3D Flip Card Memory Wall Section */
+        .flip-section-title {
+            color: #f5eedc;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .flip-grid {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 450px;
+            margin-bottom: 25px;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            width: 110px;
+            height: 110px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+            border: 1px solid #d4c5a9;
+        }
+
+        .flip-card-front {
+            background: #f5eedc;
+            color: #3b0a12;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .flip-card-front span {
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+
+        .flip-card-front p {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #8b1e2d;
+        }
+
+        .flip-card-back {
+            background: #8b1e2d;
+            color: #fdfaf5;
+            transform: rotateY(180deg);
+            font-size: 0.75rem;
+            font-weight: 600;
+            line-height: 1.3;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        /* Envelopes Section */
         .wishes-section {
-            margin-top: 35px;
             display: flex;
             gap: 15px;
             justify-content: center;
         }
 
         .envelope-card {
-            background: rgba(255, 105, 180, 0.12);
-            border: 1px solid rgba(255, 105, 180, 0.4);
-            padding: 12px 18px;
-            border-radius: 15px;
+            background: #f5eedc;
+            border: 1px solid #d4c5a9;
+            padding: 12px 20px;
+            border-radius: 12px;
             cursor: pointer;
-            backdrop-filter: blur(8px);
             transition: transform 0.2s, background 0.2s;
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #fff;
+            color: #3b0a12;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .envelope-card:hover {
-            transform: translateY(-5px) scale(1.05);
-            background: rgba(255, 105, 180, 0.25);
-            box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+            transform: translateY(-4px);
+            background: #ffffff;
         }
 
-        /* Modal for Envelope Wish Popups */
+        /* Modal Popup for Envelope Notes */
         .wish-modal {
             position: fixed;
             top: 0;
@@ -390,14 +561,14 @@
         }
 
         .wish-box {
-            background: linear-gradient(135deg, #2a0845, #18032b);
-            border: 2px solid #ff69b4;
-            border-radius: 22px;
+            background: #fcf8f2;
+            border: 2px solid #8b1e2d;
+            border-radius: 20px;
             padding: 30px 25px;
-            width: 320px;
+            width: 330px;
             max-width: 85%;
             text-align: center;
-            box-shadow: 0 0 35px rgba(255, 105, 180, 0.6);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
             transform: scale(0.8);
             transition: transform 0.3s ease;
         }
@@ -407,37 +578,37 @@
         }
 
         .wish-box p {
-            color: #fff0f5;
+            color: #3b0a12;
             font-size: 1.05rem;
             line-height: 1.6;
             margin-bottom: 20px;
+            font-family: 'Georgia', serif;
         }
 
         .wish-close-btn {
-            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            background: #8b1e2d;
             color: white;
             border: none;
-            padding: 8px 22px;
+            padding: 8px 24px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
         }
 
-        /* Modern Floating Music Player Card */
+        /* Music Player Floating Card */
         .music-player-card {
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 999;
-            background: rgba(255, 105, 180, 0.15);
-            border: 1px solid rgba(255, 105, 180, 0.4);
-            backdrop-filter: blur(12px);
+            background: #f5eedc;
+            border: 1px solid #d4c5a9;
             padding: 10px 18px;
             border-radius: 30px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.5s ease;
@@ -450,7 +621,7 @@
         }
 
         .music-icon {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             animation: spin 4s linear infinite;
         }
 
@@ -460,55 +631,39 @@
 
         .music-info {
             text-align: left;
-            color: #fff;
+            color: #3b0a12;
             font-size: 0.8rem;
         }
 
         .music-info strong {
             display: block;
-            color: #ffb3d9;
+            color: #8b1e2d;
             font-size: 0.85rem;
         }
 
-        /* Canvas Particle Screen */
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        /* Floating Hearts Container */
-        #heartsContainer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-            overflow: hidden;
-        }
-
-        .floating-heart {
-            position: absolute;
-            bottom: -50px;
-            font-size: 1.5rem;
-            animation: floatUp 6s linear infinite;
-            opacity: 0.8;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-110vh) scale(1.2) rotate(360deg); opacity: 0; }
+        /* Media Query for Mobile Responsiveness */
+        @media (max-width: 700px) {
+            .open-book {
+                flex-direction: column;
+                min-height: auto;
+            }
+            .open-book::before {
+                display: none;
+            }
+            .left-page {
+                border-right: none;
+                border-bottom: 1px solid rgba(0,0,0,0.08);
+                padding: 30px 20px;
+            }
+            .right-page {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Step 1: Girly Question Screen -->
+    <!-- Step 1: Initial Question Screen -->
     <div id="questionOverlay">
         <div class="girly-card">
             <div class="sparkle-icon">✨</div>
@@ -520,17 +675,17 @@
         </div>
     </div>
 
-    <!-- Step 2: iOS Style Passcode Lock Screen -->
+    <!-- Step 2: Aesthetic Passcode Lock Overlay -->
     <div id="lockOverlay">
-        <div class="ios-lock-container">
-            <div class="lock-title">Enter Passcode</div>
+        <div class="aesthetic-lock-box">
+            <div class="lock-title">✨ Enter Passcode ✨</div>
 
-            <!-- Passcode Dots Indicator -->
-            <div class="dots-container" id="dotsContainer">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            <!-- Heart Indicator Dots Bar -->
+            <div class="hearts-dots-container" id="dotsContainer">
+                <div class="heart-dot">♡</div>
+                <div class="heart-dot">♡</div>
+                <div class="heart-dot">♡</div>
+                <div class="heart-dot">♡</div>
             </div>
 
             <!-- Keypad Buttons Grid -->
@@ -549,24 +704,91 @@
                 <div class="key-btn action-btn" onclick="deleteKey()">⌫</div>
             </div>
 
-            <p id="errorMsg">Incorrect Passcode! Try again.</p>
+            <p id="errorMsg">Oops! Wrong passcode... Try the date that belongs to the prettiest girl 😉</p>
         </div>
     </div>
 
-    <div class="bg-glow"></div>
-    <canvas id="fireworks"></canvas>
-    <div id="heartsContainer"></div>
-
-    <!-- Main Content -->
+    <!-- MAIN CONTENT - OPEN SCRAPBOOK DIARY -->
     <div id="mainContent">
-        <div class="square-card">
-            <img src="photo.jpg" alt="Indira Sinha">
+        
+        <!-- Open Scrapbook Book -->
+        <div class="open-book">
+            <div class="binder-clip left"></div>
+            <div class="binder-clip right"></div>
+            
+            <!-- Left Page: Wishes & Typewriter -->
+            <div class="book-page left-page">
+                <div class="stamp-title">
+                    <span class="stamp-letter">h</span>
+                    <span class="stamp-letter">a</span>
+                    <span class="stamp-letter">p</span>
+                    <span class="stamp-letter">p</span>
+                    <span class="stamp-letter">y</span>
+                    <span style="width: 8px;"></span>
+                    <span class="stamp-letter">b</span>
+                    <span class="stamp-letter">i</span>
+                    <span class="stamp-letter">r</span>
+                    <span class="stamp-letter">t</span>
+                    <span class="stamp-letter">h</span>
+                    <span class="stamp-letter">d</span>
+                    <span class="stamp-letter">a</span>
+                    <span class="stamp-letter">y</span>
+                </div>
+
+                <div class="recipient-name">Indira Sinha 💖</div>
+                <div style="color: #8b1e2d; font-size: 0.9rem; font-weight: 600;">I guess no one has ever wished you like this.</div>
+                
+                <div class="typewriter-box" id="typewriter"></div>
+            </div>
+
+            <!-- Right Page: Photo & Wax Seal -->
+            <div class="book-page right-page">
+                <div class="polaroid-card">
+                    <div class="tape-accent"></div>
+                    <img src="photo.jpg" alt="Indira Sinha">
+                    <div class="polaroid-caption">Nov 3 • Birthday Girl ✨</div>
+                </div>
+
+                <div class="wax-seal">IS</div>
+            </div>
         </div>
 
-        <div class="text-container">
-            <h1 class="main-title">Happy Birthday Indira Sinha! 💖</h1>
-            <p class="sub-title">I guess no one has ever wished you like this.</p>
-            <div class="typewriter-box" id="typewriter"></div>
+        <!-- 3D Flip Card Memory Wall -->
+        <div class="flip-section-title">✨ Tap cards to reveal secret notes ✨</div>
+        <div class="flip-grid">
+            <div class="flip-card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <span>🌸</span>
+                        <p>Tap Me</p>
+                    </div>
+                    <div class="flip-card-back">
+                        10/10 would code a website for you again! 😉
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <span>✨</span>
+                        <p>Secret 2</p>
+                    </div>
+                    <div class="flip-card-back">
+                        Your smile easily brightens up my whole day. 💖
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <span>💫</span>
+                        <p>Secret 3</p>
+                    </div>
+                    <div class="flip-card-back">
+                        You're my favorite notification ever. 🌸
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Interactive Envelopes -->
@@ -590,12 +812,12 @@
         <source src="song.mp3" type="audio/mp3">
     </audio>
 
-    <!-- Modern Music Player Card -->
+    <!-- Music Player Card -->
     <div class="music-player-card" id="playerCard" onclick="togglePlay()">
         <div class="music-icon" id="musicDisk">🎵</div>
         <div class="music-info">
-            <strong id="songStatus">Playing Music...</strong>
-            <span>Click to pause/play</span>
+            <strong id="songStatus">Playing "Mitwa"...</strong>
+            <span>Tap to Pause / Play</span>
         </div>
     </div>
 
@@ -645,18 +867,21 @@
             }
         }
 
+        // Update Heart Dots indicator (♡ -> ❤️)
         function updateDots() {
-            const dots = document.querySelectorAll(".dot");
+            const dots = document.querySelectorAll(".heart-dot");
             dots.forEach((dot, index) => {
                 if (index < inputPass.length) {
                     dot.classList.add("filled");
+                    dot.innerText = "❤️";
                 } else {
                     dot.classList.remove("filled");
+                    dot.innerText = "♡";
                 }
             });
         }
 
-        // Check Passcode Match
+        // Check Passcode Match & Shake Warning
         function checkPasscode() {
             const errorMsg = document.getElementById("errorMsg");
             const dotsContainer = document.getElementById("dotsContainer");
@@ -694,11 +919,13 @@
             // Trigger Confetti Burst
             triggerConfetti();
 
-            // Start Floating Hearts & Balloons
-            startFloatingHearts();
-
             // Start Typewriter Text
             startTypewriter();
+        }
+
+        // Flip Card Toggle Function
+        function flipCard(card) {
+            card.classList.toggle("flipped");
         }
 
         // Confetti Burst Effect
@@ -712,39 +939,20 @@
                     angle: 60,
                     spread: 55,
                     origin: { x: 0 },
-                    colors: ['#ff1493', '#ff69b4', '#ffb3d9', '#ffffff']
+                    colors: ['#b81d36', '#d4af37', '#ffffff']
                 });
                 confetti({
                     particleCount: 5,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1 },
-                    colors: ['#ff1493', '#ff69b4', '#ffb3d9', '#ffffff']
+                    colors: ['#b81d36', '#d4af37', '#ffffff']
                 });
 
                 if (Date.now() < end) {
                     requestAnimationFrame(frame);
                 }
             }());
-        }
-
-        // Floating Hearts & Balloons
-        function startFloatingHearts() {
-            const container = document.getElementById('heartsContainer');
-            const icons = ['💖', '🎈', '✨', '🌸', '💕'];
-            
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.classList.add('floating-heart');
-                heart.innerText = icons[Math.floor(Math.random() * icons.length)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                container.appendChild(heart);
-
-                setTimeout(() => {
-                    heart.remove();
-                }, 7000);
-            }, 400);
         }
 
         // Typewriter Effect
@@ -775,44 +983,7 @@
             document.getElementById("wishModal").classList.remove("active");
         }
 
-        // Background Sparkle Particle Animation
-        const canvas = document.getElementById('fireworks');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-
-        for (let i = 0; i < 75; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2.2,
-                color: '#fff',
-                velocity: Math.random() * 0.5 + 0.2
-            });
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(p => {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = "#ff69b4";
-                ctx.fill();
-
-                p.y -= p.velocity;
-                if (p.y < 0) p.y = canvas.height;
-            });
-        }
-        animate();
-
-        // Music Control
+        // Music Control Handler
         var song = document.getElementById("bgSong");
         var disk = document.getElementById("musicDisk");
         var statusText = document.getElementById("songStatus");
@@ -821,7 +992,7 @@
             if (song.paused) {
                 song.play();
                 disk.style.animationPlayState = "running";
-                statusText.innerText = "Playing Music...";
+                statusText.innerText = "Playing 'Mitwa'...";
             } else {
                 song.pause();
                 disk.style.animationPlayState = "paused";
